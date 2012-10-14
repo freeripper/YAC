@@ -1,4 +1,4 @@
-package client;
+package client;  
 
 public class Message {
 	private String _text;
