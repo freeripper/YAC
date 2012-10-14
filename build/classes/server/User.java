@@ -1,6 +1,7 @@
 package server;
 
 import java.util.ArrayList;
+import server.PublicVariables;
 
 public class User {
 
@@ -10,23 +11,7 @@ public class User {
     private String nick;
     private String username;
     private PublicVariables.UserStatus status;
-    private Communicate communicateObject;
-
-    public Communicate getCommunicateObject() {
-        return communicateObject;
-    }
-
-    public void setCommunicateObject(Communicate communicateObject) {
-        this.communicateObject = communicateObject;
-    }
-
-    public ArrayList<User> getContactList() {
-        return contactList;
-    }
-
-    public void setContactList(ArrayList<User> contactList) {
-        this.contactList = contactList;
-    }
+    public Communicate communicateObject;
 
     public User(String username, String password) {
         setUsername(username);
@@ -34,8 +19,6 @@ public class User {
         setNick(username); //à la création de l'utilisateur, on lui donne pour nick son nom d'utilisateur, changeable par la suite
         setStatus(PublicVariables.UserStatus.OFFLINE);
     }
-    
-
 
     public void addContact(User user) {
         this.contactList.add(user);
