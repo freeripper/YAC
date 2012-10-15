@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import resources.PublicVariables.UserStatus;
 import resources.PublicVariables.NonExistentUserException;
 import resources.*;
+import client.ClientVariables;
 
 public class Communicate {
 
