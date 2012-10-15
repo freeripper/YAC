@@ -9,7 +9,6 @@ import server.PublicVariables.UserStatus;
 import server.PublicVariables.NonExistentUserException;
 
 public class Communicate implements Runnable {
-    
 
     PublicVariables publicVariables = new PublicVariables();
     NonExistentUserException nex;
@@ -35,8 +34,6 @@ public class Communicate implements Runnable {
             outData = new DataOutputStream(outStream);
 
 
-            if (checkCredentials()) {
-            }
         } catch (Exception e) {
             System.out.print("Exception = " + e.toString());
 //                e.printStackTrace();
@@ -51,14 +48,38 @@ public class Communicate implements Runnable {
 
     }
 
-        //vérification des identifiants de l'utilisateur
+    //vérification des identifiants de l'utilisateur
     public boolean checkCredentials() {
+        //lecture du nom d'utilisateur envoyé par le client
         try {
+            try {
+                String username = inData.readUTF();
 
+                //récupération de l'utilisateur concerné
+                connectedUser = getUserFromUsername(username);
 
-            //récupération username/password
-            String username = inData.readUTF();
-            String password = inData.readUTF();
+                //récupération du mot de passe envoyé par le client
+                String password = inData.readUTF();
+                
+                //si le mot de passe envoyé par le client est le même que celui stocké sur le serveur
+                if (password.equals(connectedUser.getPassword())) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (NonExistentUserException neue) {
+                System.out.println("Utilisateur inexistant");
+
+                //il faut également envoyer un message d'erreur au client
+                //code 2: nom d'utilisateur ou mot de passe invalide
+                outData.writeInt(2);
+
+                //il faut déconnecter le socket
+                disconnectUser();
+                //puis fermer le thread ?
+
+            }
 
 
         } catch (IOException ex) {
@@ -69,6 +90,7 @@ public class Communicate implements Runnable {
 
     }
 
+    //écoute permanente
     public void listen() {
         while (true) {
             try {
@@ -82,8 +104,8 @@ public class Communicate implements Runnable {
                     case 1: //déconnexion
                         disconnectUser();
                         break;
-                    case 10: //envoi d'un message
-                        forwardMessage();
+                    case 10: //envoi d'un message depuis le client
+                        forwardMessageFromClient();
                         break;
                     case 3: //envoi d'un fichier
                         //sendFile();
@@ -102,24 +124,16 @@ public class Communicate implements Runnable {
         }
     }
 
+    //connexion de l'utilisateur
     public void connectUser() {
         try {
-
-            //lecture du nom d'utilisateur envoyé par le client
-            String username = inData.readUTF();
-            try {
-                //récupération de l'utilisateur concerné
-                connectedUser = getUserFromUsername(username);
-                
-                
-                
-                
-            } catch (NonExistentUserException neue) {
-                System.out.println("Utilisateur inexistant");
-                //il faut également envoyer un message d'erreur au client
-                //il faut déconnecter le socket et fermer le thread
-                socket.close();
-
+            //si les identifiants fournis par le client correspondent à ceux stockés sur le serveur...
+            if (checkCredentials()) {
+                //envoi au client du code 4: "succès de la connexion"
+                outData.writeInt(4);
+            } else {
+                //envoi au client du code 2: "nom d'utilisateur ou mot de passe invalide"
+                outData.writeInt(2);
             }
 
         } catch (IOException ex) {
@@ -129,10 +143,12 @@ public class Communicate implements Runnable {
 
     }
 
+    //déconnexion de l'utilisateur
     public void disconnectUser() {
         try {
-            //envoi de l'int 1, qui correspond à un ordre de déconnexion
-            outData.writeInt(1);
+            //mise à jour du statut du contact
+            connectedUser.setStatus(UserStatus.OFFLINE);
+
             //fermeture du socket
             socket.close();
 
@@ -143,18 +159,18 @@ public class Communicate implements Runnable {
 
     }
 
-    public void forwardMessage() {
+    public void forwardMessageFromClient() {
         try {
             //détermine le user de réception à partir de son username, puis appelle le sendMessage(...) du socket de cet user en lui transmettant le message envoyé
 
             //on commence par trouver à quel user cet username correspond
             User dstUser = getUserFromUsername(inData.readUTF());
 
-            //on récupère le texte du message et on crée un objet message
-            Message message = new Message(inData.readUTF());
+            //on récupère le texte du message et on crée un objet message (contenu du message, srcUser)
+            Message message = new Message(inData.readUTF(), connectedUser);
 
             //puis on transmet le message au socket dédié au destinataire
-            dstUser.getCommunicateObject().sendMessage(message);
+            dstUser.getCommunicateObject().sendMessageToClient(message);
 
 
         } catch (NonExistentUserException ex) {
@@ -172,14 +188,17 @@ public class Communicate implements Runnable {
         //forwarde 
     }
 
-    public void sendMessage(Message message) {
-                    //envoyer au client le message forwardé par le socket dédié à l'autre client
+    public void sendMessageToClient(Message message) {
+        //envoyer au client le message forwardé par le socket dédié à l'autre client
 
         try {
-            
+
             //envoi de l'int 10, qui correspond à un envoi de message
             outData.writeInt(10);
-            
+
+            //envoi de l'utilisateur source
+            outData.writeUTF(message.getSrcUser().getUsername());
+
             //envoi du texte du message
             outData.writeUTF(message.getText());
         } catch (IOException ex) {
@@ -189,14 +208,17 @@ public class Communicate implements Runnable {
 
     public void sendFileTransferPort() {
         //envoyer au client le port de transfert forwardé par le socket dédié à l'autre client
-                try {
-            
+        try {
+
             //envoi de l'int 20, qui correspond à un déclenchement d'envoi de fichier et de port de transfert
             outData.writeInt(20);
-            
+
+            //envoi du numéro de port (valeur bidon)
+            outData.writeInt(133742);
+
             //ici, faudra appeler la fonction qui lance un nouveau socket
-            
-            
+
+
         } catch (IOException ex) {
             Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -204,18 +226,82 @@ public class Communicate implements Runnable {
 
     public synchronized void updateUserNick() {
         //réception du nouveau nick du client
+        try {
+            //réception du nouveau nick du client
+            String nick = inData.readUTF();
+
+            //on met à jour le nick de l'user dans l'objet qui lui est dédié
+            connectedUser.setNick(nick);
+
+            //puis on envoie à tous les clients:
+            //-connectés
+            //-étant dans la liste d'amis de l'user dont on met à jour le nick
+            //le nouveau nick de l'user
+            //pour cela, on fait une boucle
+            for (int i = 0; i < connectedUser.getContactList().size(); i++) {
+                //si, dans la liste de contacts de l'user, un user est connecté...
+                if (connectedUser.getContactList().get(i).getStatus().equals(UserStatus.ONLINE)) {
+                    //alors on lui transmet le nouveau nick de l'user
+                    connectedUser.getContactList().get(i).getCommunicateObject().updateContactNick(connectedUser);
+                }
+            }
+
+
+        } catch (IOException ex) {
+            Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public synchronized void updateUserStatus() {
-        //réception du nouveau statut du client
+        try {
+            //réception du nouveau statut du client
+            String utfStatus = inData.readUTF();
+
+            //on met à jour le statut de l'user dans l'objet qui lui est dédié
+            connectedUser.setStatus(UserStatus.valueOf(utfStatus));
+
+            //puis on envoie à tous les clients:
+            //-connectés
+            //-étant dans la liste d'amis de l'user dont on met à jour le statut
+            //le nouveau statut de l'user
+            //pour cela, on fait une boucle
+            for (int i = 0; i < connectedUser.getContactList().size(); i++) {
+                //si, dans la liste de contacts de l'user, un user est connecté...
+                if (connectedUser.getContactList().get(i).getStatus().equals(UserStatus.ONLINE)) {
+                    //alors on lui transmet le nouveau statut de l'user
+                    connectedUser.getContactList().get(i).getCommunicateObject().updateContactStatus(connectedUser);
+                }
+            }
+
+
+        } catch (IOException ex) {
+            Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public synchronized void updateContactNick(String username, String nick) {
-        //envoi au client du nouveau nick d'un de ses contacts
+    public void updateContactNick(User user) {
+        try {
+            //envoi au client du nouveau nick d'un de ses contacts
+            outData.writeInt(31);
+            outData.writeUTF(user.getUsername());
+            outData.writeUTF(user.getNick());
+        } catch (IOException ex) {
+            Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    public synchronized void updateContactStatus(String username, PublicVariables.UserStatus status) {
+    public void updateContactStatus(User user) {
         //envoi au client du nouveau statut d'un de ses contacts
+        try {
+            //envoi au client du nouveau nick d'un de ses contacts
+            outData.writeInt(31);
+            outData.writeUTF(user.getUsername());
+            //renvoie une version UTFisée du type énuméré userStatus
+            outData.writeUTF(String.valueOf(user.getStatus()));
+        } catch (IOException ex) {
+            Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     //méthode "synchronized" pour l'exclusion mutuelle
