@@ -1,19 +1,21 @@
 package server;
 
+import resources.User;
+import resources.Message;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import server.PublicVariables.UserStatus;
-import server.PublicVariables.NonExistentUserException;
+import resources.PublicVariables.UserStatus;
+import resources.PublicVariables.NonExistentUserException;
+import resources.PublicVariables;
 
 public class Communicate implements Runnable {
 
     PublicVariables publicVariables = new PublicVariables();
     NonExistentUserException nex;
     public User connectedUser;
-    public Server _unnamed_Server_;
     InputStream inStream;
     OutputStream outStream;
     DataInputStream inData;
@@ -238,11 +240,11 @@ public class Communicate implements Runnable {
             //-étant dans la liste d'amis de l'user dont on met à jour le nick
             //le nouveau nick de l'user
             //pour cela, on fait une boucle
-            for (int i = 0; i < connectedUser.getContactList().size(); i++) {
+            for (int i = 0; i < publicVariables.getUserList().size(); i++) {
                 //si, dans la liste de contacts de l'user, un user est connecté...
-                if (connectedUser.getContactList().get(i).getStatus().equals(UserStatus.ONLINE)) {
+                if (publicVariables.getUserList().get(i).getStatus().equals(UserStatus.ONLINE)) {
                     //alors on lui transmet le nouveau nick de l'user
-                    connectedUser.getContactList().get(i).getCommunicateObject().updateContactNick(connectedUser);
+                    publicVariables.getUserList().get(i).getCommunicateObject().updateContactNick(connectedUser);
                 }
             }
 
@@ -265,11 +267,11 @@ public class Communicate implements Runnable {
             //-étant dans la liste d'amis de l'user dont on met à jour le statut
             //le nouveau statut de l'user
             //pour cela, on fait une boucle
-            for (int i = 0; i < connectedUser.getContactList().size(); i++) {
+            for (int i = 0; i < publicVariables.getUserList().size(); i++) {
                 //si, dans la liste de contacts de l'user, un user est connecté...
-                if (connectedUser.getContactList().get(i).getStatus().equals(UserStatus.ONLINE)) {
+                if (publicVariables.getUserList().get(i).getStatus().equals(UserStatus.ONLINE)) {
                     //alors on lui transmet le nouveau statut de l'user
-                    connectedUser.getContactList().get(i).getCommunicateObject().updateContactStatus(connectedUser);
+                    publicVariables.getUserList().get(i).getCommunicateObject().updateContactStatus(connectedUser);
                 }
             }
 
@@ -309,9 +311,9 @@ public class Communicate implements Runnable {
 
         User user = null;
         //recherche, dans la liste des utilisateurs enregistrés, de l'utilisateur ayant le même username que celui envoyé par le client
-        for (int i = 0; i < PublicVariables.UserList.size(); i++) {
-            if (PublicVariables.UserList.get(i).getUsername().equals(username)) {
-                user = PublicVariables.UserList.get(i);
+        for (int i = 0; i < PublicVariables.usersList.size(); i++) {
+            if (PublicVariables.usersList.get(i).getUsername().equals(username)) {
+                user = PublicVariables.usersList.get(i);
             }
         }
         if (user == null) {

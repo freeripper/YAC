@@ -1,5 +1,7 @@
 package server;
 
+import resources.User;
+import resources.PublicVariables;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.*;
@@ -21,8 +23,8 @@ public class Server {
 
         //création d'un user bidon
         User testUser = new User("razounette", "mdp");
-        PublicVariables.UserList.add(testUser);
-        System.out.println(PublicVariables.UserList.get(0).getNick());
+        PublicVariables.usersList.add(testUser);
+        System.out.println(PublicVariables.usersList.get(0).getNick());
 
 
 
