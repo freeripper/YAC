@@ -84,6 +84,7 @@ public class GUI extends Window {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(300, 500));
         setPreferredSize(new java.awt.Dimension(300, 500));
 
         connection_jPanel.setName(""); // NOI18N
