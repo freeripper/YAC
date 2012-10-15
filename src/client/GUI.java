@@ -9,42 +9,39 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-
-
 /**
  *
  * @author roussfra
  */
 public class GUI extends Window {
 
-    
-    
-    	public Client _unnamed_Client_;
-	public ArrayList<Window> _unnamed_Window_ = new ArrayList<Window>();
+    public Client _unnamed_Client_;
+    public ArrayList<Window> _unnamed_Window_ = new ArrayList<Window>();
 
 //	public void openChat(User user) {
 //		throw new UnsupportedOperationException();
 //	}
+    public void closeChat() {
+    }
 
-	public void closeChat() {
-		
-	}
-        
-        public void closeWindow() {
-		
-	}
+    public void closeWindow() {
+    }
 
-	public void handleMessage() {
-		
-	}
+    public void handleMessage() {
+    }
+
     /**
      * Creates new form GUI2
      */
     public GUI() {
- 
+
         initComponents();
-        friend_jPanel.setVisible(false);
+        friend_jScrollPane.setVisible(false);
+       
+        connection_jPanel.setSize(this.getHeight(), this.getWidth());
         disconnect_jMenuItem.setVisible(false);
+        this.setVisible(true);
+
     }
 
     /**
@@ -220,81 +217,79 @@ public class GUI extends Window {
 
     private void connect_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connect_jButtonActionPerformed
         // TODO add your handling code here:
-        if(username_jTextField.getText().isEmpty()==true){
-            JOptionPane username_error=new JOptionPane();
+        if (username_jTextField.getText().isEmpty() == true) {
+            JOptionPane username_error = new JOptionPane();
             username_error.showMessageDialog(null, "The field \"Username\" is empty");
-            
+
         }
-        if(password_jPasswordField.getPassword().length==0){
-            JOptionPane password_error=new JOptionPane();
+        if (password_jPasswordField.getPassword().length == 0) {
+            JOptionPane password_error = new JOptionPane();
             password_error.showMessageDialog(null, "The field \"Password\" is empty");
-           
+
         }
-       //envoyer le connect()
+        //envoyer le connect()
         friend_jPanel.setVisible(true);
         connection_jPanel.setVisible(false);
         disconnect_jMenuItem.setVisible(true);
-       
-        
-        
+
+
+
     }//GEN-LAST:event_connect_jButtonActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         // TODO add your handling code here:
-        About aboutWindow=new About();
+        About aboutWindow = new About();
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void disconnect_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnect_jMenuItemActionPerformed
         // TODO add your handling code here:
         // envoyer le disconnect()
-      friend_jPanel.setVisible(false);
-      connection_jPanel.setVisible(true);
-      disconnect_jMenuItem.setVisible(false);  
-        
-        
+        friend_jPanel.setVisible(false);
+        connection_jPanel.setVisible(true);
+        disconnect_jMenuItem.setVisible(false);
+
+
     }//GEN-LAST:event_disconnect_jMenuItemActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /*
+//         * Set the Nimbus look and feel
+//         */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /*
+//         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+//         * default look and feel. For details see
+//         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /*
+//         * Create and display the form
+//         */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton connect_jButton;
@@ -316,8 +311,4 @@ public class GUI extends Window {
     private javax.swing.JTextField username_jTextField;
     private javax.swing.JLabel yac;
     // End of variables declaration//GEN-END:variables
-
-
-    
-
 }
