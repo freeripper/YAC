@@ -22,9 +22,9 @@ public class GUI extends Window {
     	public Client _unnamed_Client_;
 	public ArrayList<Window> _unnamed_Window_ = new ArrayList<Window>();
 
-	public void openChat(User user) {
-		throw new UnsupportedOperationException();
-	}
+//	public void openChat(User user) {
+//		throw new UnsupportedOperationException();
+//	}
 
 	public void closeChat() {
 		
@@ -44,7 +44,7 @@ public class GUI extends Window {
  
         initComponents();
         friend_jPanel.setVisible(false);
-        
+        disconnect_jMenuItem.setVisible(false);
     }
 
     /**
@@ -65,15 +65,14 @@ public class GUI extends Window {
         password_jPasswordField = new javax.swing.JPasswordField();
         yac = new javax.swing.JLabel();
         friend_jPanel = new javax.swing.JPanel();
-        status_jComboBox = new javax.swing.JComboBox();
         nickname_jTextField = new javax.swing.JTextField();
+        status_jComboBox = new javax.swing.JComboBox();
         friend_jScrollPane = new javax.swing.JScrollPane();
         freind_jList = new javax.swing.JList();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        disconnect_jMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        deleteMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
@@ -124,9 +123,9 @@ public class GUI extends Window {
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
-        status_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Busy", "Offline", " " }));
-
         nickname_jTextField.setText("Nickname");
+
+        status_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Busy", "Offline", " " }));
 
         freind_jList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5" };
@@ -161,6 +160,14 @@ public class GUI extends Window {
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
 
+        disconnect_jMenuItem.setText("Disconnect");
+        disconnect_jMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disconnect_jMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(disconnect_jMenuItem);
+
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -171,15 +178,6 @@ public class GUI extends Window {
         fileMenu.add(exitMenuItem);
 
         menuBar.add(fileMenu);
-
-        editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
-
-        deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Profile");
-        editMenu.add(deleteMenuItem);
-
-        menuBar.add(editMenu);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -216,6 +214,7 @@ public class GUI extends Window {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        //envoyer un disconnect()
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
@@ -231,15 +230,29 @@ public class GUI extends Window {
             password_error.showMessageDialog(null, "The field \"Password\" is empty");
            
         }
-        
+       //envoyer le connect()
+        friend_jPanel.setVisible(true);
+        connection_jPanel.setVisible(false);
+        disconnect_jMenuItem.setVisible(true);
+       
         
         
     }//GEN-LAST:event_connect_jButtonActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         // TODO add your handling code here:
-        
+        About aboutWindow=new About();
     }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void disconnect_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnect_jMenuItemActionPerformed
+        // TODO add your handling code here:
+        // envoyer le disconnect()
+      friend_jPanel.setVisible(false);
+      connection_jPanel.setVisible(true);
+      disconnect_jMenuItem.setVisible(false);  
+        
+        
+    }//GEN-LAST:event_disconnect_jMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,8 +299,7 @@ public class GUI extends Window {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton connect_jButton;
     private javax.swing.JPanel connection_jPanel;
-    private javax.swing.JMenuItem deleteMenuItem;
-    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenuItem disconnect_jMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JList freind_jList;
