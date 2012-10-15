@@ -6,6 +6,10 @@ package client;
 
 import client.Client;
 import client.GUI;
+import javax.swing.JComponent;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTabbedPane;
 /**
  *
  * @author roussfra
@@ -43,6 +47,8 @@ public class chatWindow extends Window {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 400));
+
+        onglet_jTabbedPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         content_jPanel.setPreferredSize(new java.awt.Dimension(648, 300));
 
@@ -157,4 +163,17 @@ public class chatWindow extends Window {
     private javax.swing.JButton send_file_jButton;
     private javax.swing.JButton send_jButton;
     // End of variables declaration//GEN-END:variables
+
+    public JTextArea getMsg_from_jTextArea() {
+        return msg_from_jTextArea;
+    }
+
+    public JTextArea getMsg_to_jTextArea() {
+        return msg_to_jTextArea;
+    }
+
+    public JTabbedPane getOnglet_jTabbedPane() {
+        return onglet_jTabbedPane;
+    }
+    
 }

@@ -309,7 +309,7 @@ public class GUI extends Window {
 
     private void user_jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_jListMouseClicked
         // TODO add your handling code here:
-        chatWindow chatWindow = new chatWindow();
+        ClientVariables.chatWindow.getOnglet_jTabbedPane().addTab(this.getName(), this);
     }//GEN-LAST:event_user_jListMouseClicked
 
     private void serverAddress_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverAddress_jTextFieldActionPerformed
