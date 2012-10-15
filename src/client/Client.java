@@ -16,9 +16,13 @@ public class Client {
     }
     //connexion au serveur
     public void connectToServer(String server, String port) throws UnknownHostException, IOException {
+        try{
         Socket socket = new Socket(server, Integer.parseInt(port));
         Communicate communicate = new Communicate(socket);
        ClientVariables.setCommunicate(communicate);
+        }catch(java.net.ConnectException ex){
+            ClientVariables.getGui().showConnexionFailedError();
+        }
     }
    
 }
