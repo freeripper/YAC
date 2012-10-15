@@ -7,8 +7,7 @@ package client;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 
 
@@ -61,7 +60,7 @@ public class GUI extends Window {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         connection_jPanel = new javax.swing.JPanel();
-        usename_jTextField = new javax.swing.JTextField();
+        username_jTextField = new javax.swing.JTextField();
         connect_jButton = new javax.swing.JButton();
         password_jPasswordField = new javax.swing.JPasswordField();
         yac = new javax.swing.JLabel();
@@ -82,12 +81,7 @@ public class GUI extends Window {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        usename_jTextField.setText("Username");
-        usename_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usename_jTextFieldActionPerformed(evt);
-            }
-        });
+        username_jTextField.setText("Username");
 
         connect_jButton.setText("Connect");
         connect_jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +108,7 @@ public class GUI extends Window {
                 .addGroup(connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(connect_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usename_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(username_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         connection_jPanelLayout.setVerticalGroup(
@@ -122,7 +116,7 @@ public class GUI extends Window {
             .addGroup(connection_jPanelLayout.createSequentialGroup()
                 .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usename_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(username_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,12 +219,21 @@ public class GUI extends Window {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void usename_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usename_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usename_jTextFieldActionPerformed
-
     private void connect_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connect_jButtonActionPerformed
         // TODO add your handling code here:
+        if(username_jTextField.getText().isEmpty()==true){
+            JOptionPane username_error=new JOptionPane();
+            username_error.showMessageDialog(null, "The field \"Username\" is empty");
+            
+        }
+        if(password_jPasswordField.getPassword().length==0){
+            JOptionPane password_error=new JOptionPane();
+            password_error.showMessageDialog(null, "The field \"Password\" is empty");
+           
+        }
+        
+        
+        
     }//GEN-LAST:event_connect_jButtonActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
@@ -298,7 +301,7 @@ public class GUI extends Window {
     private javax.swing.JTextField nickname_jTextField;
     private javax.swing.JPasswordField password_jPasswordField;
     private javax.swing.JComboBox status_jComboBox;
-    private javax.swing.JTextField usename_jTextField;
+    private javax.swing.JTextField username_jTextField;
     private javax.swing.JLabel yac;
     // End of variables declaration//GEN-END:variables
 

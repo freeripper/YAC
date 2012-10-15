@@ -125,7 +125,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="connect_jButton" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
                       <Component id="password_jPasswordField" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
-                      <Component id="usename_jTextField" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="username_jTextField" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -136,7 +136,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="yac" min="-2" pref="183" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="usename_jTextField" min="-2" max="-2" attributes="0"/>
+                  <Component id="username_jTextField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="password_jPasswordField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -147,13 +147,10 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="usename_jTextField">
+        <Component class="javax.swing.JTextField" name="username_jTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="Username"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usename_jTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="connect_jButton">
           <Properties>
