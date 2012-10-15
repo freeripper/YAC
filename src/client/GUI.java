@@ -284,11 +284,8 @@ public class GUI extends Window {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //envoyer le connect()
-        friend_jScrollPane.setVisible(true);
-        friend_jPanel.setVisible(true);
-        connection_jPanel.setVisible(false);
-        disconnect_jMenuItem.setVisible(true);
+
+       
 
 
 
@@ -337,6 +334,10 @@ public class GUI extends Window {
     public void connexionSucceeded() {
         JOptionPane error = new JOptionPane();
         error.showMessageDialog(null, "Connexion successful !");
+         friend_jScrollPane.setVisible(true);
+        friend_jPanel.setVisible(true);
+        connection_jPanel.setVisible(false);
+        disconnect_jMenuItem.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
