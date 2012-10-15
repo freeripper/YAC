@@ -18,6 +18,7 @@ public class chatWindow extends Window {
     public chatWindow() {
         initComponents();
         this.setVisible(true);
+        send_file_jButton.setVisible(false);
         
     }
 
@@ -34,23 +35,22 @@ public class chatWindow extends Window {
         content_jPanel = new javax.swing.JPanel();
         msg_from_jScrollPane = new javax.swing.JScrollPane();
         msg_from_jTextArea = new javax.swing.JTextArea();
-        msg_to_jScrollPane = new javax.swing.JScrollPane();
-        msg_to_jTextArea = new javax.swing.JTextArea();
+        msg_to_jPanel = new javax.swing.JPanel();
         send_jButton = new javax.swing.JButton();
         send_file_jButton = new javax.swing.JButton();
+        msg_to_jScrollPane = new javax.swing.JScrollPane();
+        msg_to_jTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(600, 400));
+
+        content_jPanel.setPreferredSize(new java.awt.Dimension(648, 300));
 
         msg_from_jTextArea.setColumns(20);
         msg_from_jTextArea.setEditable(false);
         msg_from_jTextArea.setRows(5);
         msg_from_jTextArea.setText("Yet\nAnother\nChat");
         msg_from_jScrollPane.setViewportView(msg_from_jTextArea);
-
-        msg_to_jTextArea.setColumns(20);
-        msg_to_jTextArea.setRows(5);
-        msg_to_jTextArea.setText("Message");
-        msg_to_jScrollPane.setViewportView(msg_to_jTextArea);
 
         send_jButton.setText("Send");
         send_jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -66,34 +66,55 @@ public class chatWindow extends Window {
             }
         });
 
+        msg_to_jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        msg_to_jTextArea.setColumns(20);
+        msg_to_jTextArea.setRows(5);
+        msg_to_jTextArea.setText("Message");
+        msg_to_jScrollPane.setViewportView(msg_to_jTextArea);
+
+        javax.swing.GroupLayout msg_to_jPanelLayout = new javax.swing.GroupLayout(msg_to_jPanel);
+        msg_to_jPanel.setLayout(msg_to_jPanelLayout);
+        msg_to_jPanelLayout.setHorizontalGroup(
+            msg_to_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msg_to_jPanelLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(msg_to_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(msg_to_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msg_to_jPanelLayout.createSequentialGroup()
+                        .addComponent(send_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msg_to_jPanelLayout.createSequentialGroup()
+                        .addComponent(send_file_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        msg_to_jPanelLayout.setVerticalGroup(
+            msg_to_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msg_to_jPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(send_jButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(send_file_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
+            .addGroup(msg_to_jPanelLayout.createSequentialGroup()
+                .addComponent(msg_to_jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout content_jPanelLayout = new javax.swing.GroupLayout(content_jPanel);
         content_jPanel.setLayout(content_jPanelLayout);
         content_jPanelLayout.setHorizontalGroup(
             content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, content_jPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(send_file_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(send_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(content_jPanelLayout.createSequentialGroup()
-                    .addComponent(msg_to_jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 73, Short.MAX_VALUE)))
+            .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+            .addComponent(msg_to_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         content_jPanelLayout.setVerticalGroup(
             content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, content_jPanelLayout.createSequentialGroup()
-                .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(send_jButton)
+                .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(send_file_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-            .addGroup(content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, content_jPanelLayout.createSequentialGroup()
-                    .addGap(0, 228, Short.MAX_VALUE)
-                    .addComponent(msg_to_jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(msg_to_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         onglet_jTabbedPane.addTab("tab1", content_jPanel);
@@ -102,7 +123,7 @@ public class chatWindow extends Window {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(onglet_jTabbedPane)
+            .addComponent(onglet_jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,6 +189,7 @@ public class chatWindow extends Window {
     private javax.swing.JPanel content_jPanel;
     private javax.swing.JScrollPane msg_from_jScrollPane;
     private javax.swing.JTextArea msg_from_jTextArea;
+    private javax.swing.JPanel msg_to_jPanel;
     private javax.swing.JScrollPane msg_to_jScrollPane;
     private javax.swing.JTextArea msg_to_jTextArea;
     private javax.swing.JTabbedPane onglet_jTabbedPane;

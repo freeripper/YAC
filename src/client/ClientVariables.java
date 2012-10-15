@@ -17,10 +17,13 @@ import resources.User;
         //public ArrayList<Message> _Message_List = new ArrayList<Message>();
         protected static Communicate communicate;
         protected static GUI gui;
+        protected static chatWindow chatWindow;
         
         ClientVariables(){
             //instanciation de l'interface utilisateur
             this.gui = new GUI();
+            this.chatWindow = new chatWindow();
+            this.chatWindow.setVisible(false);
         }
         
 
