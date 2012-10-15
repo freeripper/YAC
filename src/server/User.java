@@ -70,9 +70,6 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<User> getContactsList() {
-        return contactList;
-    }
 
     public PublicVariables.UserStatus getStatus() {
         return this.status;
