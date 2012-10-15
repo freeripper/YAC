@@ -330,6 +330,11 @@ public class GUI extends Window {
         JOptionPane error = new JOptionPane();
         error.showMessageDialog(null, "File transfer failed. Please try again");
     }
+    
+        public void showConnexionFailedError() {
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "Connexion to server failed.");
+    }
 
     public void connexionSucceeded() {
         JOptionPane error = new JOptionPane();
