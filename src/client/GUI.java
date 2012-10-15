@@ -15,7 +15,7 @@ import javax.swing.*;
  */
 public class GUI extends Window {
 
-    public Client _unnamed_Client_;
+    public Client client;
     public ArrayList<Window> _unnamed_Window_ = new ArrayList<Window>();
 
 //	public void openChat(User user) {
@@ -41,6 +41,8 @@ public class GUI extends Window {
         connection_jPanel.setSize(this.getHeight(), this.getWidth());
         disconnect_jMenuItem.setVisible(false);
         this.setVisible(true);
+        
+        client = new Client(); //c'est bon ça ? pas sûr, il faudrait que client soit en static
 
     }
 
@@ -79,7 +81,7 @@ public class GUI extends Window {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(300, 500));
 
-        connection_jPanel.setName("");
+        connection_jPanel.setName(""); // NOI18N
 
         username_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username_jTextField.setText("Username");
@@ -216,7 +218,7 @@ public class GUI extends Window {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(connection_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
         );
 
         pack();

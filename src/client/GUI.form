@@ -102,7 +102,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="connection_jPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="friend_jScrollPane" pref="250" max="32767" attributes="0"/>
+              <Component id="friend_jScrollPane" pref="254" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,7 +110,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="connection_jPanel">
       <Properties>
-        <Property name="name" type="java.lang.String" value=""/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
 
       <Layout>
