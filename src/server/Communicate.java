@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import resources.PublicVariables.UserStatus;
 import resources.PublicVariables.NonExistentUserException;
 import resources.PublicVariables;
+//plop !
 
 public class Communicate implements Runnable {
 
