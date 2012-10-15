@@ -4,6 +4,8 @@
  */
 package client;
 
+import client.Client;
+import client.GUI;
 /**
  *
  * @author roussfra
@@ -15,6 +17,7 @@ public class chatWindow extends Window {
      */
     public chatWindow() {
         initComponents();
+        this.setVisible(true);
         
     }
 
@@ -36,7 +39,7 @@ public class chatWindow extends Window {
         send_jButton = new javax.swing.JButton();
         send_file_jButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         msg_from_jTextArea.setColumns(20);
         msg_from_jTextArea.setEditable(false);
@@ -81,7 +84,7 @@ public class chatWindow extends Window {
         content_jPanelLayout.setVerticalGroup(
             content_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, content_jPanelLayout.createSequentialGroup()
-                .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(msg_from_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(send_jButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -115,6 +118,9 @@ public class chatWindow extends Window {
 
     private void send_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_jButtonActionPerformed
         // TODO add your handling code here:
+        String old_Text;
+        old_Text = msg_from_jTextArea.getText() + "\n" + msg_to_jTextArea.getText();
+        msg_from_jTextArea.setText(old_Text);
     }//GEN-LAST:event_send_jButtonActionPerformed
 
     /**

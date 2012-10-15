@@ -31,6 +31,7 @@ public class About extends Window {
         jTextPane1 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(250, 300));
 
         jTextPane1.setContentType("text/html");
         jTextPane1.setText("<html>\n  <head>\n<style>\n.h1{\ntext-align:center;\n}\n</style>\n  </head>\n  <body>\n<h1>YAC</h1>\n<img src=\"http://www-etu-info.iut2.upmf-grenoble.fr/~roussfra/ressources/yak_icone.png\" alt=\"Icone YAC\">\n\n    <p style=\"margin-top: 0\">\n<p>YAC is a new chat that allow you to chat with you friend for the cost of nothing than all your dynamical memorie. </p>\n<p>Let's enjoy it :D </p>\n<p><b>Creators :  </b></p>\n<p> <i>Youri </i></p>\n<p><i>François</i></p>\n </p>\n  </body>\n</html>\n");

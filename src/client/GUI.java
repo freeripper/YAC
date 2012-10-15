@@ -37,7 +37,7 @@ public class GUI extends Window {
 
         initComponents();
         friend_jScrollPane.setVisible(false);
-       
+        friend_jPanel.setVisible(false);
         connection_jPanel.setSize(this.getHeight(), this.getWidth());
         disconnect_jMenuItem.setVisible(false);
         this.setVisible(true);
@@ -61,11 +61,12 @@ public class GUI extends Window {
         connect_jButton = new javax.swing.JButton();
         password_jPasswordField = new javax.swing.JPasswordField();
         yac = new javax.swing.JLabel();
+        friend_jScrollPane = new javax.swing.JScrollPane();
         friend_jPanel = new javax.swing.JPanel();
         nickname_jTextField = new javax.swing.JTextField();
         status_jComboBox = new javax.swing.JComboBox();
-        friend_jScrollPane = new javax.swing.JScrollPane();
-        freind_jList = new javax.swing.JList();
+        userslist_jScrollPane = new javax.swing.JScrollPane();
+        user_jList = new javax.swing.JList();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         disconnect_jMenuItem = new javax.swing.JMenuItem();
@@ -76,7 +77,11 @@ public class GUI extends Window {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(300, 500));
 
+        connection_jPanel.setName("");
+
+        username_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username_jTextField.setText("Username");
 
         connect_jButton.setText("Connect");
@@ -86,6 +91,7 @@ public class GUI extends Window {
             }
         });
 
+        password_jPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password_jPasswordField.setText("Password");
 
         yac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/yak_icone.png"))); // NOI18N
@@ -96,63 +102,69 @@ public class GUI extends Window {
         connection_jPanel.setLayout(connection_jPanelLayout);
         connection_jPanelLayout.setHorizontalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(connection_jPanelLayout.createSequentialGroup()
-                .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(connection_jPanelLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(connect_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(username_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(username_jTextField)
+            .addComponent(password_jPasswordField)
+            .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         connection_jPanelLayout.setVerticalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(connection_jPanelLayout.createSequentialGroup()
-                .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(yac, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(username_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(username_jTextField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(connect_jButton)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        friend_jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        friend_jScrollPane.setMaximumSize(new java.awt.Dimension(767, 32767));
+        friend_jScrollPane.setMinimumSize(new java.awt.Dimension(230, 230));
 
         nickname_jTextField.setText("Nickname");
 
-        status_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Busy", "Offline", " " }));
+        status_jComboBox.setMaximumRowCount(3);
+        status_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Avaible", "Busi", "Offline", " " }));
 
-        freind_jList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Friend 1", "Friend 2", "Friend 3", "Friend 4", "Friend 5" };
+        user_jList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "User 1", "User 2", "User 3", "User 4", "User 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        friend_jScrollPane.setViewportView(freind_jList);
+        user_jList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        user_jList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user_jListMouseClicked(evt);
+            }
+        });
+        userslist_jScrollPane.setViewportView(user_jList);
 
         javax.swing.GroupLayout friend_jPanelLayout = new javax.swing.GroupLayout(friend_jPanel);
         friend_jPanel.setLayout(friend_jPanelLayout);
         friend_jPanelLayout.setHorizontalGroup(
             friend_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(friend_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(friend_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                    .addComponent(nickname_jTextField)
-                    .addComponent(status_jComboBox, 0, 205, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(friend_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userslist_jScrollPane)
+                    .addComponent(status_jComboBox, 0, 246, Short.MAX_VALUE)
+                    .addComponent(nickname_jTextField))
+                .addGap(252, 252, 252))
         );
         friend_jPanelLayout.setVerticalGroup(
             friend_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(friend_jPanelLayout.createSequentialGroup()
                 .addComponent(nickname_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(status_jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(friend_jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(userslist_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addGap(164, 164, 164))
         );
+
+        friend_jScrollPane.setViewportView(friend_jPanel);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -197,14 +209,14 @@ public class GUI extends Window {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(connection_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(friend_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(connection_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(friend_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,6 +240,7 @@ public class GUI extends Window {
 
         }
         //envoyer le connect()
+        friend_jScrollPane.setVisible(true);
         friend_jPanel.setVisible(true);
         connection_jPanel.setVisible(false);
         disconnect_jMenuItem.setVisible(true);
@@ -250,6 +263,11 @@ public class GUI extends Window {
 
 
     }//GEN-LAST:event_disconnect_jMenuItemActionPerformed
+
+    private void user_jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_jListMouseClicked
+            // TODO add your handling code here:
+        chatWindow chatWindow = new chatWindow();
+    }//GEN-LAST:event_user_jListMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -297,7 +315,6 @@ public class GUI extends Window {
     private javax.swing.JMenuItem disconnect_jMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JList freind_jList;
     private javax.swing.JPanel friend_jPanel;
     private javax.swing.JScrollPane friend_jScrollPane;
     private javax.swing.JMenu helpMenu;
@@ -308,7 +325,9 @@ public class GUI extends Window {
     private javax.swing.JTextField nickname_jTextField;
     private javax.swing.JPasswordField password_jPasswordField;
     private javax.swing.JComboBox status_jComboBox;
+    private javax.swing.JList user_jList;
     private javax.swing.JTextField username_jTextField;
+    private javax.swing.JScrollPane userslist_jScrollPane;
     private javax.swing.JLabel yac;
     // End of variables declaration//GEN-END:variables
 }
