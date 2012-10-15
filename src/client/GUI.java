@@ -4,6 +4,9 @@
  */
 package client;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +44,7 @@ public class GUI extends Window {
         connection_jPanel.setSize(this.getHeight(), this.getWidth());
         disconnect_jMenuItem.setVisible(false);
         this.setVisible(true);
-        
+
         client = new Client(); //c'est bon ça ? pas sûr, il faudrait que client soit en static
 
     }
@@ -63,6 +66,8 @@ public class GUI extends Window {
         connect_jButton = new javax.swing.JButton();
         password_jPasswordField = new javax.swing.JPasswordField();
         yac = new javax.swing.JLabel();
+        serverAddress_jTextField = new javax.swing.JTextField();
+        serverPort_jTextField = new javax.swing.JTextField();
         friend_jScrollPane = new javax.swing.JScrollPane();
         friend_jPanel = new javax.swing.JPanel();
         nickname_jTextField = new javax.swing.JTextField();
@@ -100,26 +105,45 @@ public class GUI extends Window {
         yac.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         yac.setPreferredSize(new java.awt.Dimension(1231, 854));
 
+        serverAddress_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        serverAddress_jTextField.setText("localhost");
+        serverAddress_jTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                serverAddress_jTextFieldActionPerformed(evt);
+            }
+        });
+
+        serverPort_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        serverPort_jTextField.setText("55555");
+
         javax.swing.GroupLayout connection_jPanelLayout = new javax.swing.GroupLayout(connection_jPanel);
         connection_jPanel.setLayout(connection_jPanelLayout);
         connection_jPanelLayout.setHorizontalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(username_jTextField)
+            .addComponent(username_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
             .addComponent(password_jPasswordField)
             .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, connection_jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(yac, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(serverAddress_jTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(serverPort_jTextField, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         connection_jPanelLayout.setVerticalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(connection_jPanelLayout.createSequentialGroup()
                 .addComponent(yac, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(serverAddress_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(serverPort_jTextField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username_jTextField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         friend_jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -211,7 +235,7 @@ public class GUI extends Window {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(connection_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(friend_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,15 +255,34 @@ public class GUI extends Window {
 
     private void connect_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connect_jButtonActionPerformed
         // TODO add your handling code here:
-        if (username_jTextField.getText().isEmpty() == true) {
+        if (serverAddress_jTextField.getText().isEmpty() == true) {
             JOptionPane username_error = new JOptionPane();
-            username_error.showMessageDialog(null, "The field \"Username\" is empty");
+            username_error.showMessageDialog(null, "The field \"Server address\" is empty.");
 
-        }
-        if (password_jPasswordField.getPassword().length == 0) {
+        } else if (serverPort_jTextField.getText().isEmpty() == true) {
+            JOptionPane username_error = new JOptionPane();
+            username_error.showMessageDialog(null, "The field \"Server port\" is empty.");
+
+        } else if (username_jTextField.getText().isEmpty() == true) {
+            JOptionPane username_error = new JOptionPane();
+            username_error.showMessageDialog(null, "The field \"Username\" is empty.");
+
+        } else if (password_jPasswordField.getPassword().length == 0) {
             JOptionPane password_error = new JOptionPane();
-            password_error.showMessageDialog(null, "The field \"Password\" is empty");
+            password_error.showMessageDialog(null, "The field \"Password\" is empty.");
 
+        } else {
+            try {
+                //si tous les champs sont OK, on tente la connexion
+                Client client = new Client();
+                client.connectToServer(serverAddress_jTextField.getText(), serverPort_jTextField.getText());
+            } catch (UnknownHostException ex) {
+                //si l'adresse n'est pas bonne
+                JOptionPane error = new JOptionPane();
+                error.showMessageDialog(null, "Could not connect to server: unknown host.");
+            } catch (IOException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         //envoyer le connect()
         friend_jScrollPane.setVisible(true);
@@ -267,16 +310,34 @@ public class GUI extends Window {
     }//GEN-LAST:event_disconnect_jMenuItemActionPerformed
 
     private void user_jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_jListMouseClicked
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         chatWindow chatWindow = new chatWindow();
     }//GEN-LAST:event_user_jListMouseClicked
 
-public void showServerWrongCredentialsError(){
-    JOptionPane error = new JOptionPane();
-            error.showMessageDialog(null, "The field \"Username\" is empty");
-}
+    private void serverAddress_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverAddress_jTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_serverAddress_jTextFieldActionPerformed
+
+    public void showServerWrongCredentialsError() {
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "The username and password is incorrect. Please try again.");
+    }
+
+    public void showServerShuttingDownNotification() {
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "Disconnected: server shutting down.");
+    }
     
-    
+
+    public void showFileTransferFailedError() {
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "File transfer failed. Please try again");
+    }
+
+    public void connexionSucceeded() {
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "Connexion successful !");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton connect_jButton;
@@ -293,6 +354,8 @@ public void showServerWrongCredentialsError(){
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField nickname_jTextField;
     private javax.swing.JPasswordField password_jPasswordField;
+    private javax.swing.JTextField serverAddress_jTextField;
+    private javax.swing.JTextField serverPort_jTextField;
     private javax.swing.JComboBox status_jComboBox;
     private javax.swing.JList user_jList;
     private javax.swing.JTextField username_jTextField;

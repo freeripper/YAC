@@ -9,6 +9,7 @@ import resources.PublicVariables.UserStatus;
 import resources.PublicVariables.NonExistentUserException;
 import resources.*;
 import client.ClientVariables;
+import java.net.UnknownHostException;
 
 public class Communicate {
 
@@ -34,7 +35,6 @@ public class Communicate {
             //Création d'un flot de sortie pour données typées
             outData = new DataOutputStream(outStream);
 
-            listen();
 
         } catch (Exception e) {
             System.out.print("Exception = " + e.toString());
@@ -86,6 +86,9 @@ public class Communicate {
             outData.writeUTF(connectedUser.getUsername());
             //envoi du password
             outData.writeUTF(connectedUser.getPassword());
+            //on écoute la réponse du serveur
+            listen();
+
         } catch (IOException ex) {
             Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,11 +97,12 @@ public class Communicate {
     }
 
     public void connexionFailed() {
-        //GUI.
+         ClientVariables.getGui().showServerWrongCredentialsError();
     }
 
     public void connexionSucceeded() {
-        //gui..
+        //si la connexion a réussi, on affiche un beau message !
+        ClientVariables.getGui().connexionSucceeded();
     }
 
     //déconnexion de l'utilisateur

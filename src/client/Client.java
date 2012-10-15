@@ -3,6 +3,9 @@ package client;
 import java.util.ArrayList;
 import resources.User;
 import client.ClientVariables;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client {
 
@@ -11,6 +14,11 @@ public class Client {
         new ClientVariables();
     
     }
-
+    //connexion au serveur
+    public void connectToServer(String server, String port) throws UnknownHostException, IOException {
+        Socket socket = new Socket(server, Integer.parseInt(port));
+        Communicate communicate = new Communicate(socket);
+       ClientVariables.setCommunicate(communicate);
+    }
    
 }
