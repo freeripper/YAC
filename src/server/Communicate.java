@@ -9,6 +9,7 @@ import server.PublicVariables.UserStatus;
 import server.PublicVariables.NonExistentUserException;
 
 public class Communicate implements Runnable {
+    
 
     PublicVariables publicVariables = new PublicVariables();
     NonExistentUserException nex;
