@@ -9,13 +9,14 @@ import resources.PublicVariables.UserStatus;
 import resources.PublicVariables.NonExistentUserException;
 import resources.*;
 import client.ClientVariables;
+import client.ClientVariables.*;
+
 import java.net.UnknownHostException;
 
 public class Communicate {
 
     PublicVariables publicVariables = new PublicVariables();
     NonExistentUserException nex;
-    public User connectedUser;
     InputStream inStream;
     OutputStream outStream;
     DataInputStream inData;
@@ -35,7 +36,9 @@ public class Communicate {
             //Création d'un flot de sortie pour données typées
             outData = new DataOutputStream(outStream);
 
-
+            connectUser();
+            
+            
         } catch (Exception e) {
             System.out.print("Exception = " + e.toString());
 //                e.printStackTrace();
@@ -73,6 +76,11 @@ public class Communicate {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    socket.close();
+                } catch (IOException ex1) {
+                    Logger.getLogger(Communicate.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
         }
     }
@@ -83,9 +91,10 @@ public class Communicate {
             //envoi du type 0, qui correspond à une demande de connexion
             outData.writeInt(0);
             //envoi de l'username
-            outData.writeUTF(connectedUser.getUsername());
+            outData.writeUTF(ClientVariables.getConnectedUser().getUsername());
             //envoi du password
-            outData.writeUTF(connectedUser.getPassword());
+            System.out.println(ClientVariables.getConnectedUser().getPassword());
+            outData.writeUTF(ClientVariables.getConnectedUser().getPassword());
             //on écoute la réponse du serveur
             listen();
 
@@ -193,7 +202,7 @@ public class Communicate {
             outData.writeInt(31);
 
             //envoi du nouveau nick
-            outData.writeUTF(connectedUser.getNick());
+            outData.writeUTF(ClientVariables.getConnectedUser().getNick());
 
 
         } catch (IOException ex) {
@@ -208,7 +217,7 @@ public class Communicate {
             outData.writeInt(30);
 
             //envoi du nouveau statut
-            outData.writeUTF(String.valueOf(connectedUser.getStatus()));
+            outData.writeUTF(String.valueOf(ClientVariables.getConnectedUser().getStatus()));
 
 
         } catch (IOException ex) {

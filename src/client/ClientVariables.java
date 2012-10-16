@@ -18,6 +18,23 @@ import resources.User;
         protected static Communicate communicate;
         protected static GUI gui;
         protected static chatWindow chatWindow;
+        protected static User connectedUser;
+
+    public static client.chatWindow getChatWindow() {
+        return chatWindow;
+    }
+
+    public static void setChatWindow(client.chatWindow chatWindow) {
+        ClientVariables.chatWindow = chatWindow;
+    }
+
+    public static User getConnectedUser() {
+        return connectedUser;
+    }
+
+    public static void setConnectedUser(User connectedUser) {
+        ClientVariables.connectedUser = connectedUser;
+    }
         
         ClientVariables(){
             //instanciation de l'interface utilisateur
