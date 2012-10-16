@@ -15,8 +15,8 @@ import resources.User;
 
         protected static User user;
         //public ArrayList<Message> _Message_List = new ArrayList<Message>();
-        protected static Communicate communicate;
-        protected static GUI gui;
+        protected static Thread communicate;
+        protected static MainWindow mainWindow;
         protected static chatWindow chatWindow;
         protected static User connectedUser;
 
@@ -38,7 +38,7 @@ import resources.User;
         
         ClientVariables(){
             //instanciation de l'interface utilisateur
-            this.gui = new GUI();
+            mainWindow = new MainWindow();
 //            this.chatWindow = new chatWindow();
 //            this.chatWindow.setVisible(false);
         }
@@ -52,19 +52,19 @@ import resources.User;
             ClientVariables.user = user;
         }
 
-        public static Communicate getCommunicate() {
+        public static Thread getCommunicate() {
             return communicate;
         }
 
-        public static void setCommunicate(Communicate communicate) {
+        public static void setCommunicate(Thread communicate) {
             ClientVariables.communicate = communicate;
         }
 
-        public static GUI getGui() {
-            return gui;
+        public static MainWindow getGui() {
+            return mainWindow;
         }
 
-        public static void setGui(GUI gui) {
-            ClientVariables.gui = gui;
+        public static void setGui(MainWindow gui) {
+            ClientVariables.mainWindow = gui;
         }
     }

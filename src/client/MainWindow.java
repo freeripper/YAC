@@ -17,7 +17,7 @@ import resources.User;
  *
  * @author roussfra
  */
-public class GUI extends Window {
+public class MainWindow extends Window {
 
     public Client client;
     public ArrayList<Window> _unnamed_Window_ = new ArrayList<Window>();
@@ -37,7 +37,7 @@ public class GUI extends Window {
     /**
      * Creates new form GUI2
      */
-    public GUI() {
+    public MainWindow() {
 
         initComponents();
         friend_jScrollPane.setVisible(false);
@@ -289,7 +289,7 @@ public class GUI extends Window {
                 JOptionPane error = new JOptionPane();
                 error.showMessageDialog(null, "Could not connect to server: unknown host.");
             } catch (IOException ex) {
-                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -344,10 +344,12 @@ public class GUI extends Window {
     }
 
     public void connexionSucceeded() {
+        connection_jPanel.setVisible(false);
         friend_jScrollPane.setVisible(true);
         friend_jPanel.setVisible(true);
-        connection_jPanel.setVisible(false);
-        disconnect_jMenuItem.setVisible(true);
+        // disconnect_jMenuItem.setVisible(true);
+        JOptionPane error = new JOptionPane();
+        error.showMessageDialog(null, "yeah!");
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

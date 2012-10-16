@@ -5,7 +5,7 @@
 package client;
 
 import client.Client;
-import client.GUI;
+import client.MainWindow;
 import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;

@@ -13,7 +13,7 @@ import client.ClientVariables.*;
 
 import java.net.UnknownHostException;
 
-public class Communicate {
+public class Communicate  implements Runnable {
 
     PublicVariables publicVariables = new PublicVariables();
     NonExistentUserException nex;
@@ -23,8 +23,14 @@ public class Communicate {
     DataOutputStream outData;
     Socket socket;
 
-    public Communicate(Socket socket) {
-        this.socket = socket;
+    Communicate(Socket socket){
+              this.socket = socket;
+
+    }
+    
+    public void run() {
+
+            
 
         try {
             //Récuperation d'un flot d'entée
@@ -38,13 +44,14 @@ public class Communicate {
 
             connectUser();
             
-            
         } catch (Exception e) {
             System.out.print("Exceptionnnn = " + e.toString());
               e.printStackTrace();
         }
 
+
     }
+  
 
     //écoute permanente
     public void listen() {

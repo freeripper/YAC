@@ -34,13 +34,13 @@ private void setSystemLookAndFeel() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
                UIManager UIManager = new UIManager();
         try {
@@ -48,25 +48,25 @@ private void setSystemLookAndFeel() {
         
 
 } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUI.class  
+            Logger.getLogger(MainWindow.class  
 
 .getName()).log(Level.SEVERE, null, ex);
         } 
 
 catch (InstantiationException ex) {
-            Logger.getLogger(GUI.class  
+            Logger.getLogger(MainWindow.class  
 
 .getName()).log(Level.SEVERE, null, ex);
         } 
 
 catch (IllegalAccessException ex) {
-            Logger.getLogger(GUI.class  
+            Logger.getLogger(MainWindow.class  
 
 .getName()).log(Level.SEVERE, null, ex);
         } 
 
 catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUI.class  
+            Logger.getLogger(MainWindow.class  
 
 .getName()).log(Level.SEVERE, null, ex);
         }

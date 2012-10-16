@@ -7,3 +7,4 @@
 *.properties
 /nbproject/private/
 /build/
+/dist/
