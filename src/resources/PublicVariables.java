@@ -60,7 +60,7 @@ public class PublicVariables {
     public class NonExistentUserException extends Exception {
 
         public NonExistentUserException() {
-            System.out.println("Vous essayez d'instancier une classe Villeavec un nombre d'habitants négatif !");
+            System.out.println("Utilisateur inexistant");
         }
     }
 }

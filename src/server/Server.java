@@ -24,7 +24,7 @@ public class Server {
         //création d'un user bidon
         User testUser = new User("razounette", "mdp");
         PublicVariables.usersList.add(testUser);
-        System.out.println(PublicVariables.usersList.get(0).getNick());
+        System.out.println(PublicVariables.usersList.get(0).getUsername());
 
 
 

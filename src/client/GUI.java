@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import resources.User;
 
 /**
  *
@@ -64,10 +65,10 @@ public class GUI extends Window {
         connection_jPanel = new javax.swing.JPanel();
         username_jTextField = new javax.swing.JTextField();
         connect_jButton = new javax.swing.JButton();
-        password_jPasswordField = new javax.swing.JPasswordField();
         yac = new javax.swing.JLabel();
         serverAddress_jTextField = new javax.swing.JTextField();
         serverPort_jTextField = new javax.swing.JTextField();
+        password_jTextField = new javax.swing.JTextField();
         friend_jScrollPane = new javax.swing.JScrollPane();
         friend_jPanel = new javax.swing.JPanel();
         nickname_jTextField = new javax.swing.JTextField();
@@ -90,7 +91,7 @@ public class GUI extends Window {
         connection_jPanel.setName(""); // NOI18N
 
         username_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        username_jTextField.setText("Username");
+        username_jTextField.setText("razounette");
 
         connect_jButton.setText("Connect");
         connect_jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -98,9 +99,6 @@ public class GUI extends Window {
                 connect_jButtonActionPerformed(evt);
             }
         });
-
-        password_jPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        password_jPasswordField.setText("Password");
 
         yac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/yak_icone.png"))); // NOI18N
         yac.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -117,12 +115,14 @@ public class GUI extends Window {
         serverPort_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         serverPort_jTextField.setText("55555");
 
+        password_jTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        password_jTextField.setText("mdp");
+
         javax.swing.GroupLayout connection_jPanelLayout = new javax.swing.GroupLayout(connection_jPanel);
         connection_jPanel.setLayout(connection_jPanelLayout);
         connection_jPanelLayout.setHorizontalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(username_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-            .addComponent(password_jPasswordField)
             .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, connection_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -130,6 +130,7 @@ public class GUI extends Window {
                 .addContainerGap())
             .addComponent(serverAddress_jTextField, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(serverPort_jTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(password_jTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
         );
         connection_jPanelLayout.setVerticalGroup(
             connection_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +143,7 @@ public class GUI extends Window {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username_jTextField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password_jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password_jTextField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(connect_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -268,13 +269,18 @@ public class GUI extends Window {
             JOptionPane username_error = new JOptionPane();
             username_error.showMessageDialog(null, "The field \"Username\" is empty.");
 
-        } else if (password_jPasswordField.getPassword().length == 0) {
+        } else if (password_jTextField.getText().isEmpty() == true) {
             JOptionPane password_error = new JOptionPane();
             password_error.showMessageDialog(null, "The field \"Password\" is empty.");
 
         } else {
             try {
                 //si tous les champs sont OK, on tente la connexion
+
+               
+                User user = new User (serverAddress_jTextField.getText(), password_jTextField.getText());
+                ClientVariables.setConnectedUser(user);
+                
                 Client client = new Client();
                 client.connectToServer(serverAddress_jTextField.getText(), serverPort_jTextField.getText());
             } catch (UnknownHostException ex) {
@@ -360,7 +366,7 @@ public class GUI extends Window {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JTextField nickname_jTextField;
-    private javax.swing.JPasswordField password_jPasswordField;
+    private javax.swing.JTextField password_jTextField;
     private javax.swing.JTextField serverAddress_jTextField;
     private javax.swing.JTextField serverPort_jTextField;
     private javax.swing.JComboBox status_jComboBox;

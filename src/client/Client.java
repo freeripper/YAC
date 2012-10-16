@@ -13,7 +13,7 @@ public class Client {
         //instanciation des variables publiques, qui du même coup lancent l'interface graphique
         new ClientVariables();
     
-    }
+       }
     //connexion au serveur
     public void connectToServer(String server, String port) throws UnknownHostException, IOException {
         try{

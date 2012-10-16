@@ -52,7 +52,7 @@ public class User {
         return this.password;
     }
 
-    public void setPassword(String aPassword) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

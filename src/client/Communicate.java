@@ -40,8 +40,8 @@ public class Communicate {
             
             
         } catch (Exception e) {
-            System.out.print("Exception = " + e.toString());
-//                e.printStackTrace();
+            System.out.print("Exceptionnnn = " + e.toString());
+              e.printStackTrace();
         }
 
     }

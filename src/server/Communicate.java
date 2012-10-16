@@ -150,10 +150,13 @@ public class Communicate implements Runnable {
     public void disconnectUser() {
         try {
             //mise à jour du statut du contact
-            connectedUser.setStatus(UserStatus.OFFLINE);
+//            connectedUser.setStatus(UserStatus.OFFLINE);
+
 
             //fermeture du socket
             socket.close();
+            
+            //une fois le socket fermé, il faut aussi killer le thread !
 
 
         } catch (IOException ex) {
@@ -313,7 +316,7 @@ public class Communicate implements Runnable {
         User user = null;
         //recherche, dans la liste des utilisateurs enregistrés, de l'utilisateur ayant le même username que celui envoyé par le client
         for (int i = 0; i < PublicVariables.usersList.size(); i++) {
-            if (PublicVariables.usersList.get(i).getUsername().equals(username)) {
+            if (PublicVariables.usersList.get(i).getUsername() == username) {
                 user = PublicVariables.usersList.get(i);
             }
         }
