@@ -39,8 +39,8 @@ import resources.User;
         ClientVariables(){
             //instanciation de l'interface utilisateur
             this.gui = new GUI();
-            this.chatWindow = new chatWindow();
-            this.chatWindow.setVisible(false);
+//            this.chatWindow = new chatWindow();
+//            this.chatWindow.setVisible(false);
         }
         
 

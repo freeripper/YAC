@@ -85,6 +85,7 @@ public class GUI extends Window {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("YAC");
         setMinimumSize(new java.awt.Dimension(300, 500));
         setPreferredSize(new java.awt.Dimension(300, 500));
 
@@ -277,10 +278,10 @@ public class GUI extends Window {
             try {
                 //si tous les champs sont OK, on tente la connexion
 
-               
-                User user = new User (serverAddress_jTextField.getText(), password_jTextField.getText());
+
+                User user = new User(username_jTextField.getText(), password_jTextField.getText());
                 ClientVariables.setConnectedUser(user);
-                
+
                 Client client = new Client();
                 client.connectToServer(serverAddress_jTextField.getText(), serverPort_jTextField.getText());
             } catch (UnknownHostException ex) {
@@ -292,7 +293,7 @@ public class GUI extends Window {
             }
         }
 
-       
+
 
 
 
@@ -331,25 +332,23 @@ public class GUI extends Window {
         JOptionPane error = new JOptionPane();
         error.showMessageDialog(null, "Disconnected: server shutting down.");
     }
-    
 
     public void showFileTransferFailedError() {
         JOptionPane error = new JOptionPane();
         error.showMessageDialog(null, "File transfer failed. Please try again");
     }
-    
-        public void showConnexionFailedError() {
+
+    public void showConnexionFailedError() {
         JOptionPane error = new JOptionPane();
         error.showMessageDialog(null, "Connexion to server failed.");
     }
 
     public void connexionSucceeded() {
-        JOptionPane error = new JOptionPane();
-        error.showMessageDialog(null, "Connexion successful !");
-         friend_jScrollPane.setVisible(true);
+        friend_jScrollPane.setVisible(true);
         friend_jPanel.setVisible(true);
         connection_jPanel.setVisible(false);
         disconnect_jMenuItem.setVisible(true);
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;

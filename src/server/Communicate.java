@@ -316,7 +316,7 @@ public class Communicate implements Runnable {
         User user = null;
         //recherche, dans la liste des utilisateurs enregistrés, de l'utilisateur ayant le même username que celui envoyé par le client
         for (int i = 0; i < PublicVariables.usersList.size(); i++) {
-            if (PublicVariables.usersList.get(i).getUsername() == username) {
+            if (PublicVariables.usersList.get(i).getUsername().equals(username)) {
                 user = PublicVariables.usersList.get(i);
             }
         }
